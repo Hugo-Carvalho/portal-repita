@@ -27,7 +27,7 @@ public class Gerente {
             FileInputStream fis;
             //buffer for read and write data to file
             try {
-                fis = new FileInputStream("C:\\Users\\hugo.carvalho\\Documents\\NetBeansProjects\\TestRobot\\dist\\TestRobot.zip");
+                fis = new FileInputStream("C:\\Users\\hugo.carvalho\\Documents\\NetBeansProjects\\TestRobot\\dist\\TestRobot.jar");
 
                 out.writeObject("TestRobot");
 

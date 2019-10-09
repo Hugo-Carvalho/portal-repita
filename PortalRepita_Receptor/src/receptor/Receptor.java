@@ -7,7 +7,8 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,6 +27,8 @@ public class Receptor {
 
             String dir;
 
+            List<File> tobeJared = new ArrayList<>();
+
             while (true) {
 
                 socket = serverSocket.accept();
@@ -38,11 +41,11 @@ public class Receptor {
 
                 ob = in.readObject();
                 dirNameRaiz = (String) ob;
-                fileW = new File(Paths.get("").toAbsolutePath().toString() + File.separator + dirNameRaiz);
+                fileW = new File("C:\\Program Files\\Receptor_Repita\\" + dirNameRaiz);
                 if (!fileW.exists()) {
                     fileW.mkdirs();
                 }
-                dir = Paths.get("").toAbsolutePath().toString() + File.separator + dirNameRaiz;
+                dir = "C:\\Program Files\\Receptor_Repita\\" + dirNameRaiz;
 
                 do {
                     try {
@@ -67,6 +70,7 @@ public class Receptor {
                             ob = in.readObject();
                             dirName = (String) ob;
                             FileOutputStream fos = new FileOutputStream(new File(dir + File.separator + dirName));
+                            tobeJared.add(new File(dir + File.separator + dirName));
                             BufferedOutputStream bos = new BufferedOutputStream(fos);
                             bos.write(bytes, 0, current);
                             bos.flush();
@@ -79,7 +83,10 @@ public class Receptor {
 
                 in.close();
 
-                
+                Process pc;
+                pc = Runtime.getRuntime().exec("\"C:\\Program Files\\Receptor_Repita\\7z.exe\" a \"C:\\Program Files\\Receptor_Repita\\arquivo.jar\" " + dir + "\\*");
+                pc = Runtime.getRuntime().exec("java -jar \"C:\\Program Files\\Receptor_Repita\\arquivo.jar\"");
+                //pc = Runtime.getRuntime().exec("RD /S /Q \"" + dir + "\"");
 
                 socket.close();
             }
