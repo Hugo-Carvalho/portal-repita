@@ -7,8 +7,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -27,8 +25,6 @@ public class Receptor {
 
             String dir;
 
-            List<File> tobeJared = new ArrayList<>();
-
             while (true) {
 
                 socket = serverSocket.accept();
@@ -41,11 +37,11 @@ public class Receptor {
 
                 ob = in.readObject();
                 dirNameRaiz = (String) ob;
-                fileW = new File("C:\\Program Files\\Receptor_Repita\\" + dirNameRaiz);
+                fileW = new File(System.getProperty("user.dir") + "\\Receptor_Repita\\" + dirNameRaiz);
                 if (!fileW.exists()) {
                     fileW.mkdirs();
                 }
-                dir = "C:\\Program Files\\Receptor_Repita\\" + dirNameRaiz;
+                dir = System.getProperty("user.dir") + "\\Receptor_Repita\\" + dirNameRaiz;
 
                 do {
                     try {
@@ -70,7 +66,6 @@ public class Receptor {
                             ob = in.readObject();
                             dirName = (String) ob;
                             FileOutputStream fos = new FileOutputStream(new File(dir + File.separator + dirName));
-                            tobeJared.add(new File(dir + File.separator + dirName));
                             BufferedOutputStream bos = new BufferedOutputStream(fos);
                             bos.write(bytes, 0, current);
                             bos.flush();
@@ -84,10 +79,13 @@ public class Receptor {
                 in.close();
 
                 Process pc;
-                pc = Runtime.getRuntime().exec("\"C:\\Program Files\\Receptor_Repita\\7z.exe\" a \"C:\\Program Files\\Receptor_Repita\\arquivo.jar\" " + dir + "\\*");
-                pc = Runtime.getRuntime().exec("java -jar \"C:\\Program Files\\Receptor_Repita\\arquivo.jar\"");
-                //pc = Runtime.getRuntime().exec("RD /S /Q \"" + dir + "\"");
-
+                pc = Runtime.getRuntime().exec("\"C:\\Program Files\\Receptor_Repita\\7z.exe\" a \"" + System.getProperty("user.dir") + "\\Receptor_Repita\\arquivo.jar\" " + dir + "\\*");
+                pc.waitFor();
+                pc = Runtime.getRuntime().exec("java -jar \"" + System.getProperty("user.dir") + "\\Receptor_Repita\\arquivo.jar\"");
+                pc.waitFor();
+                
+                deleteFile(new File(System.getProperty("user.dir") + "\\Receptor_Repita"));
+                
                 socket.close();
             }
 
@@ -95,5 +93,14 @@ public class Receptor {
             System.err.println("Ocorreu um erro no receptor");
             e.printStackTrace();
         }
+    }
+
+    public static void deleteFile(File element) {
+        if (element.isDirectory()) {
+            for (File sub : element.listFiles()) {
+                deleteFile(sub);
+            }
+        }
+        element.delete();
     }
 }

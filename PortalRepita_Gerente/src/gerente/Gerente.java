@@ -20,14 +20,14 @@ public class Gerente {
         Socket socket;
 
         try {
-            socket = new Socket("10.2.1.107", 49998);
+            socket = new Socket("localhost", 49998);
 
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 
             FileInputStream fis;
             //buffer for read and write data to file
             try {
-                fis = new FileInputStream("C:\\Users\\hugo.carvalho\\Documents\\NetBeansProjects\\TestRobot\\dist\\TestRobot.jar");
+                fis = new FileInputStream("C:\\Users\\hugan\\Documents\\NetBeansProjects\\TestRobot\\dist\\TestRobot.jar");
 
                 out.writeObject("TestRobot");
 
