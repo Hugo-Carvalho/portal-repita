@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
+
+    <body>
+        <aside class="aw-layout-sidebar  js-sidebar" th:fragment="layout-sidebar">
+            <div class="aw-layout-sidebar__content">
+                <nav th:switch="${tipoUsuario}" class="aw-menu js-menu">
+                    <ul class="aw-menu__list">
+                        <li class="aw-menu__item is-active is-expanded">
+                            <a href="#">
+                                <i class="fa  fa-fw  fa-file-text"></i><span>MontreFat</span>
+                                <i class="aw-menu__navigation-icon fa"></i>
+                            </a>
+                            <ul class="aw-menu__list  aw-menu__list--sublist">
+                                <ul class="aw-menu__list">
+                                    <li class="aw-menu__item is-active is-expanded" id="nna">
+                                        <a href="/notasNaoAprovadasNaoAtribuidas">
+                                            <i class="fa  fa-fw  fa-minus-square"></i><span>Notas não aprovadas</span>
+                                        </a>
+                                        <ul class="aw-menu__list  aw-menu__list--sublist">
+                                            <li class="aw-menu__item aw-menu__item--link" id="nnana"><a href="/notasNaoAprovadasNaoAtribuidas">Não atribuídas</a></li>
+                                            <li class="aw-menu__item aw-menu__item--link" id="nnaa"><a href="/notasNaoAprovadasAtribuidas">Atribuídas</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="aw-menu__list">
+                                    <li class="aw-menu__item is-active is-expanded" id="na">
+                                        <a href="/notasAprovadas">
+                                            <i class="fa  fa-fw  fa-check-square"></i><span>Notas aprovadas</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="aw-menu__list">
+                                    <li class="aw-menu__item is-active is-expanded" id="nr">
+                                        <a href="/notasRealizadas">
+                                            <i class="fa  fa-fw  fa-circle-o-notch"></i><span>Notas realizadas</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul th:case="admin" class="aw-menu__list">
+                        <li class="aw-menu__item">
+                            <a href="#">
+                                <i class="fa fa-fw fa-briefcase"></i><span>Administração</span>
+                                <i class="aw-menu__navigation-icon fa"></i>
+                            </a>
+                            <ul class="aw-menu__list  aw-menu__list--sublist">
+                                <ul class="aw-menu__list">
+                                    <li class="aw-menu__item" id="usu">
+                                        <a href="/usuarios">
+                                            <i class="fa fa-fw fa-users"></i><span>Usuários</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="container-fluid text-center pull-bottom">
+                        <a href="http://www.cemig.com.br" target="_blank">
+                            <img alt="cemig-logo" th:src="@{/images/cemig.png}" width="129px" />
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            <script>
+                var nna = document.getElementById('nna');
+                var na = document.getElementById('na');
+                var nr = document.getElementById('nr');
+
+                function defineActive(elementoAntigo, elementoNovo) {
+                    if (elementoAntigo !== null) {
+                        elementoAntigo.classList.remove('is-active');
+                        elementoAntigo.classList.remove('is-expanded');
+                    }
+                    elementoAntigo.classList.add('is-expanded');
+                    elementoNovo.classList.add('is-active');console.log("hjkdfhj");
+                }
+
+                nna.addEventListener('click', function () {
+                    var elementoAntigo = document.querySelector('li.is-active');
+                    defineActive(elementoAntigo, pna)
+                });
+
+                na.addEventListener('click', function () {
+                    var elementoAntigo = document.querySelector('li.is-active');
+                    defineActive(elementoAntigo, pa)
+                });
+
+                nr.addEventListener('click', function () {
+                    var elementoAntigo = document.querySelector('li.is-active');
+                    defineActive(elementoAntigo, pr)
+                });
+            </script>
+        </aside>
+    </body>
+</html>

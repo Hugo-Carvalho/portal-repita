@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+    <title>Visualizar nota</title>
+</head>
+
+<body>
+    <section layout:fragment="conteudo">
+        <form th:object="${pdf}" class="form-vertical  js-form-loading">
+            <br /><br />
+            <div class="container-fluid">
+                <div th:object="${pdf}">
+                    <div class="row">
+                        <div hidden class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('id')} ? has-error">
+                            <label for="id" class="control-label">Id</label> 
+                            <input id="id" type="text" class="form-control" th:field="*{id}" />
+                        </div>
+                        <div hidden class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('idCadastNota')} ? has-error">
+                            <label for="idCadastNota" class="control-label">id Cadast Nota</label> 
+                            <input id="idCadastNota" type="text" class="form-control" th:field="*{idCadastNota}" />
+                        </div>
+                        <div class="col-sm-12  form-group" th:classappend="${#fields.hasErrors('localidade')} ? has-error">
+                            <label for="localidade" class="control-label">Localidade</label> 
+                            <input id="localidade" type="text" class="form-control" th:field="*{localidade}" />
+                        </div>
+                        <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('emissorFatura')} ? has-error">
+                            <label for="emissorFatura" class="control-label">Emissor da fatura</label> 
+                            <input id="emissorFatura" type="text" class="form-control" th:field="*{emissorFatura}" />
+                        </div>
+                        <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('inss')} ? has-error">
+                            <label for="inss" class="control-label">INSS</label> 
+                            <input id="inss" type="text" class="form-control" th:field="*{inss}" />
+                        </div>
+                        <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('issqn')} ? has-error">
+                            <label for="issqn" class="control-label">ISSQN</label> 
+                            <input id="issqn" type="text" class="form-control" th:field="*{issqn}" />
+                        </div>
+                        <div class="col-sm-12  form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+                            <label for="valor" class="control-label">Valor</label> 
+                            <input id="valor" type="text" class="form-control" th:field="*{valor}" />
+                        </div>
+                        <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('pc')} ? has-error">
+                            <label for="pc" class="control-label">PC</label> 
+                            <input id="pc" type="text" class="form-control" th:field="*{pc}" />
+                        </div>
+                        <div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('numero')} ? has-error">
+                            <label for="numero" class="control-label">Numero</label> 
+                            <input id="numero" type="text" class="form-control" th:field="*{numero}" />
+                        </div>
+                        <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('dataEmissao')} ? has-error">
+                            <label for="dataEmissao" class="control-label">Data da emissão</label> 
+                            <input id="dataEmissao" type="text" class="form-control" th:field="*{dataEmissao}" />
+                        </div>
+                        <div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('codVerificacao')} ? has-error">
+                            <label for="codVerificacao" class="control-label">Codigo de verificação</label> 
+                            <input id="codVerificacao" type="text" class="form-control" th:field="*{codVerificacao}" />
+                        </div>
+                        <div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('cnpj')} ? has-error">
+                            <label for="cnpj" class="control-label">CNPJ/CPF</label> 
+                            <input id="cnpj" type="text" class="form-control" th:field="*{cnpj}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-left">
+                <a th:href="${(#mvc.url('NAC#visualizarNotaAprovada').arg(0, pdf.idCadastNota)).build()}" type="button" class="btn">Voltar</a>
+            </div>
+            <br /><br />
+            </form>
+            <div class="container-fluid">
+                <div class="pull-right">
+                    <a class="btn" type="submit" onclick="openFile()">Abrir arquivo em uma nova guia</a>
+                </div>
+                <form th:object="${pdf}" class="form-vertical  js-form-loading">
+                    <input hidden id="blob" class="blob" th:field="*{pdfFile}" />
+                    <iframe id="blob-src-test" frameborder="0" style="height: -webkit-fill-available; width: 100%;"></iframe>
+                    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+                    <script>
+
+                        var array_str = document.getElementById("blob").value.split(",");
+                        var array_int = [];
+                        for (i = 0; i < array_str.length; i++) {
+                            array_int[i] = parseInt(array_str[i]);
+                        }
+                        var blob = new Blob([new Uint8Array(array_int)], { type: "application/pdf" });
+                        var link = window.URL.createObjectURL(blob);
+                        var blob_iframe = document.querySelector('#blob-src-test');
+                        blob_iframe.src = link;
+
+                        function openFile() {
+                            var array_str = document.getElementById("blob").value.split(",");
+                            var array_int = [];
+                            for (i = 0; i < array_str.length; i++) {
+                                array_int[i] = parseInt(array_str[i]);
+                            }
+                            var blob = new Blob([new Uint8Array(array_int)], { type: "application/pdf" });
+                            var link = window.URL.createObjectURL(blob);
+                            var win = window.open(link, '_blank');
+                            win.focus();
+                        }
+                    </script>
+                </form>
+            </div>
+        </section>
+    </body>
+</html>
