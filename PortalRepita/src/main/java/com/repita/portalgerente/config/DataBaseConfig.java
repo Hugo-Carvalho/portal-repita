@@ -1,10 +1,9 @@
 package com.repita.portalgerente.config;
 
+import com.repita.portalgerente.model.Cronograma;
 import java.util.Properties;
-
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,8 +16,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import com.repita.portalgerente.model.CadastroNota;
 
 @Configuration
 @EnableAutoConfiguration
@@ -43,7 +40,7 @@ public class DataBaseConfig {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
 		em.setJpaVendorAdapter(vendorAdapter);
-		em.setPackagesToScan(CadastroNota.class.getPackage().getName());
+		em.setPackagesToScan(Cronograma.class.getPackage().getName());
 		em.setJpaProperties(additionalProperties());
 		em.afterPropertiesSet();
 

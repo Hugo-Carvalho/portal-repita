@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/LayoutPadrao}">
+
+    <head>
+        <title>Visualizar processos realizados</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <form th:object="${nota}" class="form-vertical  js-form-loading">
+
+                <div class="container-fluid">
+                    <div th:object="${nota.cadastroNota}">
+                        <div class="row">
+                            <div hidden class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('id')} ? has-error">
+                                <label for="id" class="control-label">Id</label> 
+                                <input disabled id="id" type="text" class="form-control" th:field="*{id}" />
+                            </div>
+                            <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+                                <label for="nome" class="control-label">Nome do cronograma</label> 
+                                <input disabled id="nome" disabled type="text" class="form-control" th:field="*{nome}" />
+                            </div>
+                            <div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('receptor')} ? has-error">
+                                <label for="receptor" class="control-label">Ip do recptor</label> 
+                                <input disabled id="receptor" disabled type="text" class="form-control" th:field="*{receptor}" />
+                            </div>
+                            <div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('robo')} ? has-error">
+                                <label for="robo" class="control-label">JAR do robô</label> 
+                                <input disabled id="robo" type="text" class="form-control" th:field="*{robo}" />
+                            </div>
+                            <div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('data_inicio')} ? has-error">
+                                <label for="data_inicio" class="control-label">Data de início</label> 
+                                <input disabled id="data_inicio" type="text" class="form-control" th:field="*{data_inicio}" />
+                            </div>
+                            <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('hora_inicio')} ? has-error">
+                                <label for="hora_inicio" class="control-label">Hora de início</label> 
+                                <input disabled id="hora_inicio" type="text" class="form-control" th:field="*{hora_inicio}" />
+                            </div>
+                            <div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('data_termino')} ? has-error">
+                                <label for="data_termino" class="control-label">Data do término</label> 
+                                <input disabled id="data_termino" type="text" class="form-control" th:field="*{data_termino}" />
+                            </div>
+                            <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('hora_termino')} ? has-error">
+                                <label for="hora_termino" class="control-label">Hora do término</label> 
+                                <input disabled id="hora_termino" type="text" class="form-control" th:field="*{hora_termino}" />
+                            </div>
+                            <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('status')} ? has-error">
+                                <label for="status" class="control-label">Status da execução</label> 
+                                <input disabled id="status" type="text" class="form-control" th:field="*{status}" />
+                            </div>
+                            <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('mensagem')} ? has-error">
+                                <label for="mensagem" class="control-label">Mensagem de retorno</label> 
+                                <input disabled id="mensagem" type="text" class="form-control" th:field="*{mensagem}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="pull-left">
+                        <a href="/cronogramasExecutados" type="button" class="btn">Voltar</a>
+                    </div>
+                    <br /><br />
+                </div>   
+            </form>
+        </section>
+    </body>
+</html>

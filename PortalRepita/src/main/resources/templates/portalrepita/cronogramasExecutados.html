@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/LayoutPadrao}">
+
+    <head>
+        <title>Cronogramas executados</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="page-header">
+                <div class="container-fluid">
+                    <h1>Cronogramas executados</h1>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Nome</th>
+                            <th class="text-center">Receptor</th>
+                            <th class="text-center">Data início</th>
+                            <th class="text-center">Hora início</th>
+                            <th class="text-center">Data término</th>
+                            <th class="text-center">Hora término</th>
+                            <th class="text-center">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <tr th:each="cronogramaExecutado : ${cronogramasExecutados}">
+                            <td><span th:text="${cronogramaExecutado.id}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.nome}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.receptor}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.data_inicio}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.hora_inicio}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.data_termino}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.hora_termino}"></span></td>
+                            <td><a class="waves-effect waves-light btn-small" th:href="@{/visualizarCronogramaExecutado(id = ${cronogramaExecutado.id})}"><i class="material-icons left"><span class="glyphicon glyphicon-eye-open text-warning"></span></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </body>
+</html>

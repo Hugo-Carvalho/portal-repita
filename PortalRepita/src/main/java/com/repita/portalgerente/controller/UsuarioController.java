@@ -2,7 +2,10 @@ package com.repita.portalgerente.controller;
 
 import com.repita.portalgerente.model.Usuario;
 import com.repita.portalgerente.repository.UsuarioRepository;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -16,105 +19,125 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UsuarioController {
-    
+
     @Autowired
     private UsuarioRepository usuarioRepository;
-    
+
     @RequestMapping("/usuarios")
     public ModelAndView usuarios(HttpSession session) {
+
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-        usuarioLogado = usuarioRepository.findByLogin(usuarioLogado.getUser(), usuarioLogado.getSenha());
-        
-        if(usuarioLogado.getTipo().equals("admin")){
-            ModelAndView mv = new ModelAndView("faturamento/usuarios");
+
+        if (usuarioLogado.getTipo().equals("admin")) {
+            ModelAndView mv = new ModelAndView("portalrepita/usuarios");
             List<Usuario> usuarios = usuarioRepository.findAll();
 
-            mv.addObject("tipoUsuario", usuarioLogado.getTipo());
+            mv.addObject("usuarioLogado", usuarioLogado);
             mv.addObject("usuarios", usuarios);
             return mv;
-        } 
-        
-        ModelAndView mv = new ModelAndView("faturamento/index");
-        
-        mv.addObject("tipoUsuario", usuarioLogado.getTipo());
-        mv.addObject("usuario", usuarioLogado);
+        }
+
+        ModelAndView mv = new ModelAndView("portalrepita/index");
+
+        mv.addObject("usuarioLogado", usuarioLogado);
         mv.addObject("msgErro", "Você não é um administrador");
+
         return mv;
     }
-    
+
     @RequestMapping("/editarUsuario")
     public ModelAndView editarUsuario(Long id, HttpSession session) {
+
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-        usuarioLogado = usuarioRepository.findByLogin(usuarioLogado.getUser(), usuarioLogado.getSenha());
-        
-        if(usuarioLogado.getTipo().equals("admin")){
-            ModelAndView mv = new ModelAndView("faturamento/editarUsuario");
+
+        if (usuarioLogado.getTipo().equals("admin")) {
+            ModelAndView mv = new ModelAndView("portalrepita/editarUsuario");
             Usuario usuario = usuarioRepository.findById(id);
 
-            mv.addObject("userUsuario", usuarioLogado.getUser());
-            mv.addObject("tipoUsuario", usuarioLogado.getTipo());
+            mv.addObject("usuarioLogado", usuarioLogado);
             mv.addObject("usuario", usuario);
 
             return mv;
         }
-        
-        ModelAndView mv = new ModelAndView("faturamento/index");
-        
-        mv.addObject("tipoUsuario", usuarioLogado.getTipo());
-        mv.addObject("usuario", usuarioLogado);
+
+        ModelAndView mv = new ModelAndView("portalrepita/index");
+
+        mv.addObject("usuarioLogado", usuarioLogado);
         mv.addObject("msgErro", "Você não é um administrador");
+
         return mv;
     }
-    
+
     @RequestMapping("/adicionarUsuario")
     public ModelAndView adicionarUsuario(HttpSession session) {
+
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-        usuarioLogado = usuarioRepository.findByLogin(usuarioLogado.getUser(), usuarioLogado.getSenha());
-        
-        if(usuarioLogado.getTipo().equals("admin")){
-            ModelAndView mv = new ModelAndView("faturamento/adicionarUsuario");
+
+        if (usuarioLogado.getTipo().equals("admin")) {
+            ModelAndView mv = new ModelAndView("portalrepita/adicionarUsuario");
             Usuario newUsuario = new Usuario();
 
-            mv.addObject("tipoUsuario", usuarioLogado.getTipo());
-
+            mv.addObject("usuarioLogado", usuarioLogado);
             mv.addObject("newUsuario", newUsuario);
+
             return mv;
         }
-        
-        ModelAndView mv = new ModelAndView("faturamento/index");
-        
-        mv.addObject("tipoUsuario", usuarioLogado.getTipo());
-        mv.addObject("usuario", usuarioLogado);
+
+        ModelAndView mv = new ModelAndView("portalrepita/index");
+
+        mv.addObject("usuarioLogado", usuarioLogado);
         mv.addObject("msgErro", "Você não é um administrador");
         return mv;
     }
-    
+
     @RequestMapping("/excluirUsuario")
-    public String excluirUsuario(Long id, HttpSession session) {
+    public ModelAndView excluirUsuario(Long id, HttpSession session, HttpServletResponse response) {
+
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-        usuarioLogado = usuarioRepository.findByLogin(usuarioLogado.getUser(), usuarioLogado.getSenha());
-        
-        if(usuarioLogado.getTipo().equals("admin")){
-            
+
+        if (usuarioLogado.getTipo().equals("admin")) {
+
             Usuario usuario = usuarioRepository.findById(id);
             usuarioRepository.delete(usuario);
 
-            return "redirect:/usuarios";
+            try {
+                response.sendRedirect("/usuarios");
+            } catch (IOException ex) {
+                Logger.getLogger(CronogramaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return null;
         }
-        
-        return "redirect:/index";
+
+        ModelAndView mv = new ModelAndView("portalrepita/index");
+
+        mv.addObject("usuarioLogado", usuarioLogado);
+        mv.addObject("msgErro", "Você não é um administrador");
+        return mv;
     }
-    
+
     @RequestMapping(value = "/saveUsuario", method = RequestMethod.POST)
-    public String form(@Valid Usuario usuario, HttpSession session, HttpServletResponse response, BindingResult result, RedirectAttributes attributes) {
+    public ModelAndView form(@Valid Usuario usuario, HttpSession session, HttpServletResponse response, BindingResult result, RedirectAttributes attributes) {
+        
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-        usuarioLogado = usuarioRepository.findByLogin(usuarioLogado.getUser(), usuarioLogado.getSenha());
-        
-        if(usuarioLogado.getTipo().equals("admin")){
+
+        if (usuarioLogado.getTipo().equals("admin")) {
+            
             usuarioRepository.save(usuario);
-            return "redirect:/usuarios";
+            
+            try {
+                response.sendRedirect("/usuarios");
+            } catch (IOException ex) {
+                Logger.getLogger(CronogramaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return null;
         }
-        
-        return "redirect:/index";
+
+        ModelAndView mv = new ModelAndView("portalrepita/index");
+
+        mv.addObject("usuarioLogado", usuarioLogado);
+        mv.addObject("msgErro", "Você não é um administrador");
+        return mv;
     }
 }

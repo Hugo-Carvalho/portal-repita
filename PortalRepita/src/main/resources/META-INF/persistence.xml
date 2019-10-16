@@ -3,6 +3,10 @@
   <persistence-unit name="com.montreal_montrejur_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.montreal.juridico.model.MontrejurAutor</class>
+    <class>com.repita.portalgerente.model.Cronograma</class>
+    <class>com.repita.portalgerente.model.CronogramaExecutando</class>
+    <class>com.repita.portalgerente.model.CronogramaExecutado</class>
+    <class>com.repita.portalgerente.model.Usuario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://MIBHIFR005H:3306/DE_DB_ROBO_DEV?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="USR_KAPOW"/>
