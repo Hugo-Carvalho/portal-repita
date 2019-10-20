@@ -52,7 +52,6 @@ public class Cronograma implements Serializable {
     @Column(name = "receptor")
     private String receptor;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "robo")
     private String robo;

@@ -10,6 +10,11 @@
 
     <body>
         <section layout:fragment="conteudo">
+            <div class="page-header">
+                <div class="container-fluid">
+                    <h1>Editar usuário</h1>
+                </div>
+            </div>
             <form method="POST" action="/saveUsuario" th:object="${usuario}" class="form-vertical  js-form-loading">
                 <br /><br />
                 <div class="container-fluid">

@@ -34,10 +34,10 @@
                             <td><span th:text="${cronogramaExecutado.id}"></span></td>
                             <td><span th:text="${cronogramaExecutado.nome}"></span></td>
                             <td><span th:text="${cronogramaExecutado.receptor}"></span></td>
-                            <td><span th:text="${cronogramaExecutado.data_inicio}"></span></td>
-                            <td><span th:text="${cronogramaExecutado.hora_inicio}"></span></td>
-                            <td><span th:text="${cronogramaExecutado.data_termino}"></span></td>
-                            <td><span th:text="${cronogramaExecutado.hora_termino}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.dataInicio}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.horaInicio}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.dataTermino}"></span></td>
+                            <td><span th:text="${cronogramaExecutado.horaTermino}"></span></td>
                             <td><a class="waves-effect waves-light btn-small" th:href="@{/visualizarCronogramaExecutado(id = ${cronogramaExecutado.id})}"><i class="material-icons left"><span class="glyphicon glyphicon-eye-open text-warning"></span></i></a></td>
                         </tr>
                     </tbody>

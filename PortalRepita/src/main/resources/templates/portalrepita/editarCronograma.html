@@ -10,6 +10,11 @@
 
     <body>
         <section layout:fragment="conteudo">
+            <div class="page-header">
+                <div class="container-fluid">
+                    <h1>Editar cronograma</h1>
+                </div>
+            </div>
             <form method="POST" action="/saveCronograma" th:object="${cronograma}" class="form-vertical  js-form-loading">
                 <br /><br />
                 <div class="container-fluid">
@@ -31,13 +36,13 @@
                                 <label for="robo" class="control-label">JAR do robô</label> 
                                 <input id="robo" type="text" class="form-control" th:field="*{robo}" />
                             </div>
-                            <div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('data_inicio')} ? has-error">
-                                <label for="data_inicio" class="control-label">Data de início</label> 
-                                <input id="data_inicio" type="text" class="form-control" th:field="*{data_inicio}" />
+                            <div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('dataInicio')} ? has-error">
+                                <label for="dataInicio" class="control-label">Data de início</label> 
+                                <input id="dataInicio" type="text" class="form-control" th:field="*{dataInicio}" />
                             </div>
-                            <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('hora_inicio')} ? has-error">
-                                <label for="hora_inicio" class="control-label">Hora de início</label> 
-                                <input id="hora_inicio" type="text" class="form-control" th:field="*{hora_inicio}" />
+                            <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('horaInicio')} ? has-error">
+                                <label for="horaInicio" class="control-label">Hora de início</label> 
+                                <input id="horaInicio" type="text" class="form-control" th:field="*{horaInicio}" />
                             </div>
                         </div>
                     </div>

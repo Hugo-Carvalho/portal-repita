@@ -1,10 +1,19 @@
 package com.repita.portalgerente.controller;
 
+import com.repita.portalgerente.model.Agendador;
 import com.repita.portalgerente.model.Cronograma;
 import com.repita.portalgerente.model.Usuario;
 import com.repita.portalgerente.repository.CronogramaRepository;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
@@ -15,11 +24,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CronogramaController {
+
+    private static String uploadDirectory = System.getProperty("user.dir") + "/Documents/Projetos Repita";
 
     @Autowired
     private CronogramaRepository cronogramaRepository;
@@ -65,9 +78,33 @@ public class CronogramaController {
     }
 
     @RequestMapping(value = "/saveCronograma", method = RequestMethod.POST)
-    public ModelAndView form(@Valid Cronograma cronograma, HttpSession session, HttpServletResponse response, BindingResult result, RedirectAttributes attributes) {
+    public ModelAndView form(@RequestParam("file") MultipartFile file, @Valid Cronograma cronograma, HttpSession session, HttpServletResponse response, BindingResult result, RedirectAttributes attributes) {
+
+        Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+        try {
+            if (!Files.exists(Paths.get(uploadDirectory))) {
+                Files.createDirectories(Paths.get(uploadDirectory));
+            }
+            Files.write(fileNameAndPath, file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        cronograma.setRobo(fileNameAndPath.toString());
 
         cronogramaRepository.save(cronograma);
+        
+        DateFormat inputFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date data = null;
+        try {
+            data = (Date)inputFormatter.parse(cronograma.getDataInicio() + " " + cronograma.getHoraInicio() + ":00");
+        } catch (ParseException ex) {
+            Logger.getLogger(CronogramaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Timer timer = new Timer();
+        Agendador agendador = new Agendador();
+        timer.schedule(agendador, data);
 
         try {
             response.sendRedirect("/cronogramas");
