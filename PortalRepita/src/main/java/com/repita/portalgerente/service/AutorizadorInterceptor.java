@@ -1,13 +1,9 @@
-package com.repita.portalgerente.model;
+package com.repita.portalgerente.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-/**
- *
- * @author hugo.carvalho
- */
 public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
     @Override

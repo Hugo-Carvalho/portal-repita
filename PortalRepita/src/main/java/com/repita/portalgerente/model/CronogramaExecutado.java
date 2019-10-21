@@ -78,7 +78,7 @@ public class CronogramaExecutado implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "hora termino")
+    @Column(name = "hora_termino")
     private String horaTermino;
     @Basic(optional = false)
     @NotNull

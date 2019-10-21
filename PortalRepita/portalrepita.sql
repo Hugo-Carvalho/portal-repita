@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: 20-Out-2019 às 01:15
--- Versão do servidor: 5.7.23
--- versão do PHP: 7.2.10
+-- Host: 127.0.0.1
+-- Tempo de geração: 21-Out-2019 às 12:34
+-- Versão do servidor: 10.4.6-MariaDB
+-- versão do PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `portalrepita`
+-- Banco de dados: `portalrepita`
 --
 
 -- --------------------------------------------------------
@@ -28,15 +28,13 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `cronograma`
 --
 
-DROP TABLE IF EXISTS `cronograma`;
-CREATE TABLE IF NOT EXISTS `cronograma` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cronograma` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `receptor` varchar(255) NOT NULL,
   `robo` varchar(255) DEFAULT NULL,
-  `data_inicio` varchar(255) NOT NULL,
-  `hora_inicio` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `data_inicio` varchar(255) DEFAULT NULL,
+  `hora_inicio` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -45,9 +43,8 @@ CREATE TABLE IF NOT EXISTS `cronograma` (
 -- Estrutura da tabela `cronograma_executado`
 --
 
-DROP TABLE IF EXISTS `cronograma_executado`;
-CREATE TABLE IF NOT EXISTS `cronograma_executado` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cronograma_executado` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `receptor` varchar(255) NOT NULL,
   `robo` varchar(255) NOT NULL,
@@ -56,8 +53,7 @@ CREATE TABLE IF NOT EXISTS `cronograma_executado` (
   `data_termino` varchar(255) NOT NULL,
   `hora termino` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `mensagem` text NOT NULL,
-  PRIMARY KEY (`id`)
+  `mensagem` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -66,15 +62,13 @@ CREATE TABLE IF NOT EXISTS `cronograma_executado` (
 -- Estrutura da tabela `cronograma_executando`
 --
 
-DROP TABLE IF EXISTS `cronograma_executando`;
-CREATE TABLE IF NOT EXISTS `cronograma_executando` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cronograma_executando` (
+  `id` bigint(20) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `receptor` varchar(255) NOT NULL,
   `robo` varchar(255) NOT NULL,
   `data_inicio` varchar(255) NOT NULL,
-  `hora_inicio` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `hora_inicio` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -83,15 +77,13 @@ CREATE TABLE IF NOT EXISTS `cronograma_executando` (
 -- Estrutura da tabela `usuario`
 --
 
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE IF NOT EXISTS `usuario` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuario` (
+  `id` bigint(20) NOT NULL,
   `login` varchar(255) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `nome` varchar(255) NOT NULL,
-  `tipo` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `tipo` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -99,6 +91,62 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 
 INSERT INTO `usuario` (`id`, `login`, `senha`, `nome`, `tipo`) VALUES
 (1, 'admin', 'admin', 'Administrador', 'admin');
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices para tabela `cronograma`
+--
+ALTER TABLE `cronograma`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `cronograma_executado`
+--
+ALTER TABLE `cronograma_executado`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `cronograma_executando`
+--
+ALTER TABLE `cronograma_executando`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `cronograma`
+--
+ALTER TABLE `cronograma`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `cronograma_executado`
+--
+ALTER TABLE `cronograma_executado`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `cronograma_executando`
+--
+ALTER TABLE `cronograma_executando`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

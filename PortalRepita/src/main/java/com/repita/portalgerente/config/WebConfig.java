@@ -1,7 +1,7 @@
 package com.repita.portalgerente.config;
 
 import com.repita.portalgerente.controller.IndexController;
-import com.repita.portalgerente.model.AutorizadorInterceptor;
+import com.repita.portalgerente.service.AutorizadorInterceptor;
 import java.util.Locale;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.BeansException;

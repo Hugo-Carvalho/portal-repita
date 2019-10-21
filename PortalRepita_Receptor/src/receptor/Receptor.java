@@ -21,7 +21,7 @@ public class Receptor {
 
         try {
 
-            serverSocket = new ServerSocket(49998);
+            serverSocket = new ServerSocket(38888);
 
             String dir;
 

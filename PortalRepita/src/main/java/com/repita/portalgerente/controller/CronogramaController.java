@@ -1,6 +1,5 @@
 package com.repita.portalgerente.controller;
 
-import com.repita.portalgerente.model.Agendador;
 import com.repita.portalgerente.model.Cronograma;
 import com.repita.portalgerente.model.Usuario;
 import com.repita.portalgerente.repository.CronogramaRepository;
@@ -8,12 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
@@ -93,18 +87,6 @@ public class CronogramaController {
         cronograma.setRobo(fileNameAndPath.toString());
 
         cronogramaRepository.save(cronograma);
-        
-        DateFormat inputFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date data = null;
-        try {
-            data = (Date)inputFormatter.parse(cronograma.getDataInicio() + " " + cronograma.getHoraInicio() + ":00");
-        } catch (ParseException ex) {
-            Logger.getLogger(CronogramaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        Timer timer = new Timer();
-        Agendador agendador = new Agendador();
-        timer.schedule(agendador, data);
 
         try {
             response.sendRedirect("/cronogramas");

@@ -51,13 +51,10 @@ public class Cronograma implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "receptor")
     private String receptor;
-    @Basic(optional = false)
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "robo")
     private String robo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "data_inicio")
     private String dataInicio;
     @Basic(optional = false)
@@ -73,12 +70,10 @@ public class Cronograma implements Serializable {
         this.id = id;
     }
 
-    public Cronograma(Long id, String nome, String receptor, String robo, String dataInicio, String horaInicio) {
+    public Cronograma(Long id, String nome, String receptor, String horaInicio) {
         this.id = id;
         this.nome = nome;
         this.receptor = receptor;
-        this.robo = robo;
-        this.dataInicio = dataInicio;
         this.horaInicio = horaInicio;
     }
 

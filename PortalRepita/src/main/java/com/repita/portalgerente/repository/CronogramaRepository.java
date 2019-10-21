@@ -8,4 +8,5 @@ public interface CronogramaRepository extends JpaRepository<Cronograma, String> 
 
     List<Cronograma> findAll();
     Cronograma findById(Long id);
+    List<Cronograma> findByHoraInicio(String horaInicio);
 }
