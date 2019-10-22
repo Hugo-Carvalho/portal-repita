@@ -24,7 +24,7 @@
                                 <label for="id" class="control-label">Id</label> 
                                 <input id="id" type="text" class="form-control" th:field="*{id}" />
                             </div>
-                            <div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+                            <div class="col-sm-4  form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
                                 <label for="nome" class="control-label">Nome do cronograma</label> 
                                 <input id="nome" type="text" class="form-control" th:field="*{nome}" />
                             </div>
@@ -38,7 +38,11 @@
                             </div>
                             <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('dataInicio')} ? has-error">
                                 <label for="dataInicio" class="control-label">Data de início</label> 
-                                <input id="dataInicio" type="date" class="form-control" th:field="*{dataInicio}" />
+                                <input disabled id="dataInicio" type="date" class="form-control" th:field="*{dataInicio}" />
+                                <div onclick="dateCheck();" class="form-check">
+                                    <input type="checkbox" checked class="form-check-input" id="dateCheck">
+                                    <label class="form-check-label" for="dateCheck">Executar todos os dias</label>
+                                </div>
                             </div>
                             <div class="col-sm-2  form-group" th:classappend="${#fields.hasErrors('horaInicio')} ? has-error">
                                 <label for="horaInicio" class="control-label">Hora de início</label> 
@@ -56,6 +60,15 @@
                 </div>
                 <br /><br />
             </form>
+            <script>
+                function dateCheck(){
+                    if(document.getElementById('dateCheck').checked == false){
+                        document.getElementById('dataInicio').disabled = false;
+                    } else {
+                        document.getElementById('dataInicio').disabled = true;
+                    }
+                }
+            </script>
         </section>
     </body>
 </html>

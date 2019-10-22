@@ -4,7 +4,7 @@
     <body>
         <aside class="aw-layout-sidebar  js-sidebar" th:fragment="layout-sidebar">
             <div class="aw-layout-sidebar__content">
-                <nav th:switch="${usuario.tipo}" class="aw-menu js-menu">
+                <nav th:switch="${usuarioLogado.tipo}" class="aw-menu js-menu">
                     <ul class="aw-menu__list">
                         <li class="aw-menu__item is-active is-expanded">
                             <a href="#">
@@ -15,21 +15,21 @@
                                 <ul class="aw-menu__list">
                                     <li class="aw-menu__item is-active is-expanded">
                                         <a href="/cronogramas">
-                                            <i class="fa  fa-fw  fa-circle-o-notch"></i><span>Cronogramas</span>
+                                            <i class="fa  fa-fw  fa-paper-plane"></i><span>Cronogramas</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="aw-menu__list">
                                     <li class="aw-menu__item is-active is-expanded">
                                         <a href="/cronogramasExecutando">
-                                            <i class="fa  fa-fw  fa-check-square"></i><span>Cronogramas executando</span>
+                                            <i class="fa  fa-fw  fa-spinner"></i><span>Cronogramas executando</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <ul class="aw-menu__list">
                                     <li class="aw-menu__item is-active is-expanded">
                                         <a href="/cronogramasExecutados">
-                                            <i class="fa  fa-fw  fa-circle-o-notch"></i><span>Cronogramas executados</span>
+                                            <i class="fa  fa-fw  fa-check"></i><span>Cronogramas executados</span>
                                         </a>
                                     </li>
                                 </ul>

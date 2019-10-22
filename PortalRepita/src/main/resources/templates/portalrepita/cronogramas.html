@@ -16,15 +16,6 @@
                 </div>
             </div>
             <div class="container-fluid">
-
-                <input hidden type="text" id="msgErro" th:value="${msgErro}" />
-                <div style="display: none;" class="pop-outer">
-                    <div class="pop-inner">
-                        <button class="close">X</button>
-                        <h1><span th:inline="text">[[${msgErro}]]</span></h1>
-                    </div>
-                </div>
-
                 <div class="pull-right">
                     <label>Recarregar: </label>
                     <select id="reloader" class="form-group" onchange="reloader(this.value);">
@@ -88,29 +79,6 @@
                         localStorage.setItem('time', time);
                         location.reload();
                     }, time);
-                }
-
-                var erro = document.getElementById('msgErro');
-
-                if (erro.value != "") {
-                    $(".pop-outer").fadeIn("slow");
-                }
-
-                $(document).ready(function () {
-                    $(".close").click(function () {
-                        $(".pop-outer").fadeOut("slow");
-                        window.location.href = "/notasNaoAprovadasNaoAtribuidas";
-                    });
-                    $(".pop-outer").click(function () {
-                        $(".pop-outer").fadeOut("slow");
-                        window.location.href = "/notasNaoAprovadasNaoAtribuidas";
-                    });
-                });
-
-                function atribuir(id, user) {
-                    if (user != "Selecione...") {
-                        window.location.href = "/atribuirNotaTo?id=" + id + "&user=" + user;
-                    }
                 }
             </script>
         </section>

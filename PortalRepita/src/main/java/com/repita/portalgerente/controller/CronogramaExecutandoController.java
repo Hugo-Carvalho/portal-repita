@@ -22,9 +22,9 @@ public class CronogramaExecutandoController {
         ModelAndView mv = new ModelAndView("portalrepita/cronogramasExecutando");
 
         List<CronogramaExecutando> cronogramasExecutando = cronogramaExecutandoRepository.findAll();
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
-        mv.addObject("usuario", usuario);
+        mv.addObject("usuarioLogado", usuarioLogado);
         mv.addObject("cronogramasExecutando", cronogramasExecutando);
 
         return mv;
@@ -36,9 +36,9 @@ public class CronogramaExecutandoController {
         ModelAndView mv = new ModelAndView("portalrepita/visualizarCronogramaExecutando");
 
         CronogramaExecutando cronogramaExecutando = cronogramaExecutandoRepository.findById(id);
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
-        mv.addObject("usuario", usuario);
+        mv.addObject("usuarioLogado", usuarioLogado);
         mv.addObject("cronogramaExecutando", cronogramaExecutando);
 
         return mv;

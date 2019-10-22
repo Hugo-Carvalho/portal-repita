@@ -41,7 +41,7 @@ public class LoginController {
             // Imputa o objeto na sessão
             session.setAttribute("usuarioLogado", usuario);
             ModelAndView mv = new ModelAndView("portalrepita/index");
-            mv.addObject("usuario", usuario);
+            mv.addObject("usuarioLogado", usuario);
             return mv;
         }
 
@@ -55,10 +55,10 @@ public class LoginController {
     public ModelAndView listUsuario(HttpServletResponse response, HttpSession session) {
 
         // Valida na sessão se ja possui o atributo de usuario e redireciona ou cria o model para página inicial do sistema
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-        if (Objects.nonNull(usuario)) {
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+        if (Objects.nonNull(usuarioLogado)) {
             ModelAndView mv = new ModelAndView("portalrepita/index");
-            mv.addObject("usuario", usuario);
+            mv.addObject("usuarioLogado", usuarioLogado);
             return mv;
         }
 

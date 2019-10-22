@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 21-Out-2019 às 12:34
+-- Tempo de geração: 22-Out-2019 às 19:50
 -- Versão do servidor: 10.4.6-MariaDB
 -- versão do PHP: 7.3.9
 
@@ -51,7 +51,7 @@ CREATE TABLE `cronograma_executado` (
   `data_inicio` varchar(255) NOT NULL,
   `hora_inicio` varchar(255) NOT NULL,
   `data_termino` varchar(255) NOT NULL,
-  `hora termino` varchar(255) NOT NULL,
+  `hora_termino` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   `mensagem` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -128,19 +128,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `cronograma`
 --
 ALTER TABLE `cronograma`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `cronograma_executado`
 --
 ALTER TABLE `cronograma_executado`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `cronograma_executando`
 --
 ALTER TABLE `cronograma_executando`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`

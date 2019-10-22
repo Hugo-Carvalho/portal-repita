@@ -21,7 +21,7 @@
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center">Nome</th>
-                            <th class="text-center">Usuário</th>
+                            <th class="text-center">Login</th>
                             <th class="text-center">Tipo</th>
                             <th class="text-center">Editar</th>
                             <th class="text-center">Excluir</th>
@@ -31,7 +31,7 @@
                         <tr th:each="usuario : ${usuarios}">
                             <td><span th:text="${usuario.id}"></span></td>
                             <td><span th:text="${usuario.nome}"></span></td>
-                            <td><span th:text="${usuario.user}"></span></td>
+                            <td><span th:text="${usuario.login}"></span></td>
                             <td><span th:text="${usuario.tipo}"></span></td>
                             <td><a class="waves-effect waves-light btn-small" th:href="@{/editarUsuario(id = ${usuario.id})}"><i class="material-icons left"><span class="glyphicon glyphicon-edit text-warning"></span></i></a></td>
                             <td><a class="waves-effect waves-light btn-small" th:href="@{/excluirUsuario(id = ${usuario.id})}"><i class="material-icons left"><span class="glyphicon glyphicon-trash text-danger"></span></i></a></td>

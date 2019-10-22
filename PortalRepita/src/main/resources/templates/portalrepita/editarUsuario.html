@@ -28,9 +28,9 @@
                                 <label for="nome" class="control-label">Nome</label> 
                                 <input id="nome" type="text" class="form-control" th:field="*{nome}" />
                             </div>
-                            <div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('user')} ? has-error">
-                                <label for="user" class="control-label">Usuário</label> 
-                                <input id="user" type="text" class="form-control" th:field="*{user}" />
+                            <div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('login')} ? has-error">
+                                <label for="login" class="control-label">Login</label> 
+                                <input id="login" type="text" class="form-control" th:field="*{login}" />
                             </div>
                             <div class="col-sm-6  form-group" th:classappend="${#fields.hasErrors('senha')} ? has-error">
                                 <label for="senha" class="control-label">Senha</label> 
@@ -53,10 +53,10 @@
                     </div>
                 </div>
             </form>
-            <input hidden id="userLog" type="text" th:value="${userUsuario}" />
+            <input hidden id="userLog" type="text" th:value="${usuarioLogado.login}" />
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
             <script>
-                var user = document.getElementById('user');
+                var user = document.getElementById('login');
                 var userLog = document.getElementById('userLog');
 
                 if(user.value == userLog.value){

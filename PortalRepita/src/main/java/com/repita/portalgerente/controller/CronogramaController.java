@@ -37,9 +37,9 @@ public class CronogramaController {
         ModelAndView mv = new ModelAndView("portalrepita/cronogramas");
 
         List<Cronograma> cronogramas = cronogramaRepository.findAll();
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
 
-        mv.addObject("usuario", usuario);
+        mv.addObject("usuarioLogado", usuarioLogado);
         mv.addObject("cronogramas", cronogramas);
 
         return mv;
@@ -51,9 +51,9 @@ public class CronogramaController {
         ModelAndView mv = new ModelAndView("portalrepita/editarCronograma");
 
         Cronograma cronograma = cronogramaRepository.findById(id);
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
 
-        mv.addObject("usuario", usuario);
+        mv.addObject("usuarioLogado", usuarioLogado);
         mv.addObject("cronograma", cronograma);
         return mv;
     }
@@ -64,9 +64,9 @@ public class CronogramaController {
         ModelAndView mv = new ModelAndView("portalrepita/adicionarCronograma");
 
         Cronograma newCronograma = new Cronograma();
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
 
-        mv.addObject("usuario", usuario);
+        mv.addObject("usuarioLogado", usuarioLogado);
         mv.addObject("newCronograma", newCronograma);
         return mv;
     }
@@ -74,17 +74,19 @@ public class CronogramaController {
     @RequestMapping(value = "/saveCronograma", method = RequestMethod.POST)
     public ModelAndView form(@RequestParam("file") MultipartFile file, @Valid Cronograma cronograma, HttpSession session, HttpServletResponse response, BindingResult result, RedirectAttributes attributes) {
 
-        Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
-        try {
-            if (!Files.exists(Paths.get(uploadDirectory))) {
-                Files.createDirectories(Paths.get(uploadDirectory));
+        if(!file.isEmpty()){
+            Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+            try {
+                if (!Files.exists(Paths.get(uploadDirectory))) {
+                    Files.createDirectories(Paths.get(uploadDirectory));
+                }
+                Files.write(fileNameAndPath, file.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            Files.write(fileNameAndPath, file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        cronograma.setRobo(fileNameAndPath.toString());
+            cronograma.setRobo(fileNameAndPath.toString());
+        }
 
         cronogramaRepository.save(cronograma);
 

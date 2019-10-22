@@ -12,10 +12,9 @@ public class IndexController {
     @RequestMapping("/")
     public ModelAndView index(HttpSession session) {
         ModelAndView mv = new ModelAndView("portalrepita/index");
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
-        mv.addObject("tipoUsuario", usuario.getTipo());
-        mv.addObject("usuario", usuario);
+        mv.addObject("usuarioLogado", usuarioLogado);
         return mv;
     }
 }

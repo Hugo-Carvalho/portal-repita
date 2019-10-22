@@ -19,26 +19,26 @@ public class CronogramaExecutadoController {
     @RequestMapping("/cronogramasExecutados")
     public ModelAndView cronogramasExecutados(HttpSession session) {
         
-        ModelAndView mv = new ModelAndView("portalrepita/cronogramasExecutando");
+        ModelAndView mv = new ModelAndView("portalrepita/cronogramasExecutados");
 
-        List<CronogramaExecutado> cronogramasExecutado = cronogramaExecutadoRepository.findAll();
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        List<CronogramaExecutado> cronogramasExecutados = cronogramaExecutadoRepository.findAll();
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
-        mv.addObject("usuario", usuario);
-        mv.addObject("cronogramasExecutado", cronogramasExecutado);
+        mv.addObject("usuarioLogado", usuarioLogado);
+        mv.addObject("cronogramasExecutados", cronogramasExecutados);
         
         return mv;
     }
 
-    @RequestMapping("/visualizarNotaRealizada")
+    @RequestMapping("/visualizarCronogramaExecutado")
     public ModelAndView visualizarCronogramaExecutando(Long id, HttpSession session) {
         
-        ModelAndView mv = new ModelAndView("portalrepita/visualizarCronogramaExecutando");
+        ModelAndView mv = new ModelAndView("portalrepita/visualizarCronogramaExecutado");
 
         CronogramaExecutado cronogramaExecutado = cronogramaExecutadoRepository.findById(id);
-        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
         
-        mv.addObject("usuario", usuario);
+        mv.addObject("usuarioLogado", usuarioLogado);
         mv.addObject("cronogramaExecutado", cronogramaExecutado);
 
         return mv;
