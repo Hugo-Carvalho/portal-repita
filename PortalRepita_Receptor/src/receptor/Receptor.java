@@ -1,10 +1,14 @@
 package receptor;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -17,7 +21,7 @@ public class Receptor {
     public static void main(String[] args) {
 
         ServerSocket serverSocket;
-        Socket socket;
+        Socket socket = null;
 
         try {
 
@@ -30,6 +34,7 @@ public class Receptor {
                 socket = serverSocket.accept();
 
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 
                 Object ob;
                 String dirName, dirNameRaiz;
@@ -76,22 +81,42 @@ public class Receptor {
                     }
                 } while (ob != null);
 
-                in.close();
-
                 Process pc;
+                System.out.println("\"C:\\Program Files\\Receptor_Repita\\7z.exe\" a \"" + System.getProperty("user.dir") + "\\Receptor_Repita\\arquivo.jar\" " + dir + "\\*");
                 pc = Runtime.getRuntime().exec("\"C:\\Program Files\\Receptor_Repita\\7z.exe\" a \"" + System.getProperty("user.dir") + "\\Receptor_Repita\\arquivo.jar\" " + dir + "\\*");
                 pc.waitFor();
                 pc = Runtime.getRuntime().exec("java -jar \"" + System.getProperty("user.dir") + "\\Receptor_Repita\\arquivo.jar\"");
                 pc.waitFor();
+
+                BufferedReader errinput = new BufferedReader(new InputStreamReader(pc.getErrorStream()));
+                String line = null;
+                String saida = "";
+                while ((line = errinput.readLine()) != null) {
+                    saida += line;
+                }
+
+                if (saida.isEmpty()) {
+                    saida = "Robô executado com sucesso!";
+                }
                 
+                out.writeObject(saida);
+
                 deleteFile(new File(System.getProperty("user.dir") + "\\Receptor_Repita"));
                 
-                socket.close();
+                in.close();
+                out.close();
             }
 
         } catch (Exception e) {
             System.err.println("Ocorreu um erro no receptor");
             e.printStackTrace();
+        }
+
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            System.err.println("Ocorreu um erro no receptor");
+            ex.printStackTrace();
         }
     }
 

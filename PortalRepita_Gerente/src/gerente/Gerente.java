@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.zip.ZipEntry;
@@ -17,17 +18,18 @@ public class Gerente {
 
     public static void main(String[] args) {
 
-        Socket socket;
+        Socket socket = null;
 
         try {
-            socket = new Socket("localhost", 49998);
+            socket = new Socket("localhost", 38888);
 
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
             FileInputStream fis;
             //buffer for read and write data to file
             try {
-                fis = new FileInputStream("C:\\Users\\hugan\\Documents\\NetBeansProjects\\TestRobot\\dist\\TestRobot.jar");
+                fis = new FileInputStream("C:\\Users\\hugo.carvalho\\Documents\\NetBeansProjects\\TestRobot\\dist\\TestRobot.jar");
 
                 out.writeObject("TestRobot");
 
@@ -48,6 +50,8 @@ public class Gerente {
                     zis.closeEntry();
                     ze = zis.getNextEntry();
                 }
+                // indica que o arquivo terminou
+                out.writeObject(null);
                 //close last ZipEntry
                 zis.closeEntry();
                 zis.close();
@@ -55,12 +59,24 @@ public class Gerente {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+                        
+            String saida = (String) in.readObject();
 
+            System.out.println(saida);
+            
             out.close();
-            socket.close();
+            in.close();
+
         } catch (Exception e) {
             System.err.println("Ocorreu um erro no gerenciador");
             e.printStackTrace();
+        }
+
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            System.err.println("Ocorreu um erro no gerenciador");
+            ex.printStackTrace();
         }
     }
 
