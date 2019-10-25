@@ -72,7 +72,7 @@ public class Agendador {
         String saida = null;
         
         try {
-            socket = new Socket("localhost", 38888);
+            socket = new Socket(cronograma.getReceptor(), 38888);
             
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
@@ -80,9 +80,9 @@ public class Agendador {
             FileInputStream fis;
             //buffer for read and write data to file
             try {
-                fis = new FileInputStream("C:\\Users\\hugo.carvalho\\Documents\\NetBeansProjects\\TestRobot\\dist\\TestRobot.jar");
+                fis = new FileInputStream(cronograma.getRobo());
                 
-                out.writeObject("TestRobot");
+                out.writeObject(cronograma.getNome());
                 
                 ZipInputStream zis = new ZipInputStream(fis);
                 ZipEntry ze = zis.getNextEntry();
